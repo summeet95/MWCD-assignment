@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+**Dependencies Required to Run All the Above Components**
+List of Dependencies
+**Core Dependencies**
+React and React DOM: For building and rendering React components.
+npm install react react-dom
+**Routing**
+React Router DOM: For client-side routing and navigation.
+npm install react-router-dom
+**Icons**
+React Icons: For using icons like FaInfoCircle and FaThumbsUp.
+npm install react-icons
+**Rich-Text Editor**
+TinyMCE React: For integrating the TinyMCE rich-text editor in the SubmitIdeacomponent.
+npm install @tinymce/tinymce-react
+**Sanitization**
+DOMPurify: For safely rendering HTML content to prevent XSS attacks.
+npm install dompurify
+**HTTP Requests**
+Axios: For handling HTTP requests (used in some components for API calls).
+npm install axios
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Steps to Set Up and Run the Project**
+**Step 1: Initialize a React Project**
+Create a new React project using Create React App or Vite:
+npx create-react-app my-app
+cd my-app
+Or with Vite (for faster build times):
+npm create vite@latest my-app --template react
+cd my-app
 
-## Available Scripts
+**Step 2: Install Dependencies**
+Run the following commands in the project directory to install the required dependencies:
+npm install react-router-dom react-icons @tinymce/tinymce-react dompurify axios
 
-In the project directory, you can run:
+**Step 3: Set Up File Structure**
+Organize your file structure as follows:
+src/
+  Assets/
+    logo.png
+    header.png
+    background.jpg
+    login_image.png
+    register_image.png
+  components/
+    Header.js
+    SubmitIdea.js
+    View.js
+    Employee.js
+    Manager.js
+  App.js
+  index.js
+Place all assets (e.g., logo.png, background.jpg) in the Assets/ directory.
+Place the component files (e.g., Header.js, SubmitIdea.js) in the components/ directory.
 
-### `npm start`
+**Step 4: Add Routing**
+Set up routes in App.js for different components:
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import SubmitIdea from "./components/SubmitIdea";
+import View from "./components/View";
+import Employee from "./components/Employee";
+import Manager from "./components/Manager";
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+function App() {
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Employee />} />
+        <Route path="/manager" element={<Manager />} />
+        <Route path="/submit-idea" element={<SubmitIdea />} />
+        <Route path="/view" element={<View />} />
+      </Routes>
+    </Router>
+  );
+}
+export default App;
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Step 5: Backend Setup**
+Ensure the backend is running with API endpoints such as:
+http://localhost:8080/api/ideas/ideas (GET): Fetch all ideas.
+http://localhost:8080/api/ideas/submit (POST): Submit a new idea.
+http://localhost:8080/api/ideas/delete/:id (DELETE): Delete an idea.
+If no backend exists, you can set up a simple backend using Node.js and Express.
 
-### `npm test`
+**Step 6: Run the Application**
+Start the development server:
+npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Testing the Application**
+Homepage: Visit http://localhost:3000 to view the Employee Dashboard (Employee component).
+Submit Idea: Navigate to /submit-idea to submit ideas.
+Manager Dashboard: Navigate to /manager to manage ideas as a manager.
+View Ideas: Navigate to /view to see the list of ideas and interact with them.
 
-### `npm run build`
+**Notes**
+API Key for TinyMCE:
+Replace the apiKey in the SubmitIdea component with your own TinyMCE API key. You can get one for free by signing up on the TinyMCE website.
+Backend Configuration:
+If you're not using the backend URLs provided (http://localhost:8080), update the API endpoints in the components accordingly.
+Environment Variables:
+Use .envto store sensitive information like API base URLs and keys: REACT_APP_API_BASE_URL=http://localhost:8080/api
+Deployment: 
+After testing, build the app for production:
+npm run build
+Deploy it using services like Netlify, Vercel, or any hosting provider.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Tailwind CSS Configuration**
+Ensure Tailwind CSS is properly configured in the project:
+Install Tailwind:
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Configure tailwind.config.jsto define content paths:
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Import Tailwind in index.css:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
